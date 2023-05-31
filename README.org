@@ -438,9 +438,7 @@ with "M-x <name-of-function>"
            (plist-get nerd-icons-ivy-rich-display-transformers-list src))))
 
   (defun hm-find-file-in-chrome ()
-    "Open FILE in Chrome.
-
-  Similar to `browse-url-chrome` but prompts for a file."
+    "Prompt for a file and open it in Chrome."
     (interactive)
     (counsel--find-file-1 "Open in chrome: " nil #'browse-url-chrome 'hm-find-file-in-chrome))
   (hm-clone-ivy-display-transformers 'counsel-find-file 'hm-find-file-in-chrome)
