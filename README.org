@@ -35,9 +35,7 @@ byte compiling packages for the first time.
 4. Emacs interactive functions are accessed through the =M-x= key where =M= is
 =Alt=. Some useful functions (that can be mapped to keys if desired) are:
 
-*Note*: =counsel-rg= requires installing ripgrep.
-
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :exports results
   (let (
         (make-row (lambda (fn)
                     (if (stringp fn) `(,fn "")
@@ -119,6 +117,8 @@ byte compiling packages for the first time.
 | counsel-describe-function        | Forward to ‘describe-function’.                                              |
 | counsel-describe-variable        | Forward to ‘describe-variable’.                                              |
 | describe-key                     | Display documentation of the function invoked by KEY-LIST.                   |
+
+*Note*: =counsel-rg= requires installing ripgrep.
 
 ** Dependencies
 
@@ -369,6 +369,7 @@ inline documentation.
   (require 'diff-hl)
   (defun set-up-diff-hl-mode ()
     "Set up diff hl.
+
   Diff HL provides the state (+/-/modified) to the left of the line numbers."
     (diff-hl-flydiff-mode t)
      ;; Margin mode should usually be enabled for terminal. GUI mode automatically
