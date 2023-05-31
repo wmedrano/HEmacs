@@ -1,0 +1,27 @@
+#+title: HEmacs
+#+author: Will Medrano
+#+email: will.s.medrano@gmail.com
+
+* Introduction
+
+An Emacs config for VIM users.
+
+* Installation
+
+1. Clone the configuration to =.emacs.d=.
+
+#+begin_src shell
+  git clone https://github.com/wmedrano/hemacs .emacs.d
+#+end_src
+
+2. Install the packages. This can be done by opening =README.org= in Emacs and pressing =C-c C-c= in the codeblock below.
+
+#+begin_src emacs-lisp
+  (package-refresh-contents)
+  (package-install-selected-packages t)
+#+end_src
+
+#+RESULTS:
+: ‘package-selected-packages’ is empty, nothing to install
+
+3. Restart Emacs.
