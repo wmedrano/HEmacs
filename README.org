@@ -230,6 +230,7 @@ mode.
 
   (defun hm-evil-define-normal-key-only (key fn)
     "Maps KEY to FN, but only in normal mode.
+
   Motion state will be unbounded."
     (define-key evil-motion-state-map key nil)
     (define-key evil-normal-state-map key fn))
@@ -406,7 +407,8 @@ with "M-x <name-of-function>"
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun hm-clone-ivy-display-transformers (src dst)
     "Applies ivy completion styling from function SRC to function DST.
-  Note: This must be run before the mode is enabled."
+
+  Note: This must be run before the rich modes are enabled."
     (setq ivy-rich-display-transformers-list
           (plist-put
            ivy-rich-display-transformers-list dst
@@ -417,7 +419,9 @@ with "M-x <name-of-function>"
            (plist-get nerd-icons-ivy-rich-display-transformers-list src))))
 
   (defun hm-find-file-in-chrome ()
-    "Open FILE in Chrome."
+    "Open FILE in Chrome.
+
+  Similar to `browse-url-chrome` but prompts for a file."
     (interactive)
     (counsel--find-file-1 "Open in chrome: " nil #'browse-url-chrome 'hm-find-file-in-chrome))
   (hm-clone-ivy-display-transformers 'counsel-find-file 'hm-find-file-in-chrome)

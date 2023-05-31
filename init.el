@@ -112,6 +112,7 @@ doom-modeline-hud t)
 
 (defun hm-evil-define-normal-key-only (key fn)
   "Maps KEY to FN, but only in normal mode.
+
 Motion state will be unbounded."
   (define-key evil-motion-state-map key nil)
   (define-key evil-normal-state-map key fn))
@@ -266,6 +267,7 @@ Motion state will be unbounded."
 (require 'diff-hl)
 (defun set-up-diff-hl-mode ()
   "Set up diff hl.
+
 Diff HL provides the state (+/-/modified) to the left of the line numbers."
   (diff-hl-flydiff-mode t)
    ;; Margin mode should usually be enabled for terminal. GUI mode automatically
@@ -294,7 +296,8 @@ Diff HL provides the state (+/-/modified) to the left of the line numbers."
 ;; [[file:README.org::*Open File In Chrome][Open File In Chrome:1]]
 (defun hm-clone-ivy-display-transformers (src dst)
   "Applies ivy completion styling from function SRC to function DST.
-Note: This must be run before the mode is enabled."
+
+Note: This must be run before the rich modes are enabled."
   (setq ivy-rich-display-transformers-list
         (plist-put
          ivy-rich-display-transformers-list dst
@@ -305,7 +308,9 @@ Note: This must be run before the mode is enabled."
          (plist-get nerd-icons-ivy-rich-display-transformers-list src))))
 
 (defun hm-find-file-in-chrome ()
-  "Open FILE in Chrome."
+  "Open FILE in Chrome.
+
+Similar to `browse-url-chrome` but prompts for a file."
   (interactive)
   (counsel--find-file-1 "Open in chrome: " nil #'browse-url-chrome 'hm-find-file-in-chrome))
 (hm-clone-ivy-display-transformers 'counsel-find-file 'hm-find-file-in-chrome)
