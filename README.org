@@ -171,6 +171,25 @@ documentation for a variable.
   (which-key-mode t)
 #+end_src
 
+If you want to know what a specific key does:
+
+1. Run =M-x describe-key= or press =C-h k=.
+2. Press the keys that you want to know about, for example =gd= in normal state.
+3. This will open a buffer display the documentation. The documentation contains
+   the Emacs keymap and key that was pressed, the function that is run, and
+   links to the function implementation. For example, =gd= will display:
+
+#+begin_example
+g d runs the command evil-goto-definition (found in evil-motion-state-map),
+which is an interactive native compiled Lisp function in ‘evil-commands.el’.
+
+It is bound to g d.
+
+(evil-goto-definition)
+
+Go to definition or first occurrence of symbol under point.
+See also ‘evil-goto-definition-functions’.
+#+end_example
 
 * Theming
 
