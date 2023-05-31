@@ -4,7 +4,7 @@
 ;; [[file:README.org::*Dependencies][Dependencies:1]]
 (custom-set-variables
  '(package-selected-packages
-   '(htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil)))
+   '(auto-highlight-symbol-mode evil-anzu ivy-emoji htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil yaml-mode)))
 ;; Dependencies:1 ends here
 
 ;; Fonts
@@ -79,7 +79,7 @@ doom-modeline-hud t)
 (column-number-mode t)
 ;; Theming:1 ends here
 
-;; Keybindings
+;; VIM
 
 ;; For keybindings we use evil to provide a VIM like experience. We also add
 ;; additional keybindings that are similar to VSCode. To learn what a function
@@ -87,25 +87,43 @@ doom-modeline-hud t)
 ;; documentation for the function eglot-code-actions.
 
 
-;; [[file:README.org::*Keybindings][Keybindings:1]]
+;; [[file:README.org::*VIM][VIM:1]]
 ;; Usually we require first but evil needs to know some of the variables at init
 ;; time.
 (setq-default evil-want-C-u-scroll t)
 (require 'evil)
+(require 'evil-anzu)
+(require 'anzu)
 (evil-mode t)
+(global-anzu-mode t);; To show number of search matches in modeline.
+;; VIM:1 ends here
 
-;; Modes that you cannot insert text into.
+;; Motion State
+
+;; Evil motion state is similar to normal state but does not allow entering insert
+;; mode.
+
+
+;; [[file:README.org::*Motion State][Motion State:1]]
 (add-to-list 'evil-motion-state-modes 'dired-mode)
 (add-to-list 'evil-motion-state-modes 'magit-diff-mode)
+(add-to-list 'evil-motion-state-modes 'magit-status-mode)
 (add-to-list 'evil-motion-state-modes 'special-mode)
-;; Keybindings:1 ends here
 
+(defun hm-evil-define-normal-key-only (key fn)
+  "Maps KEY to FN, but only in normal mode.
+Motion state will be unbounded."
+  (define-key evil-motion-state-map key nil)
+  (define-key evil-normal-state-map key fn))
+(hm-evil-define-normal-key-only (kbd "RET") #'evil-ret)
+;; Motion State:1 ends here
 
+;; VSCode
 
 ;; The below are taken from VSCode.
 
 
-;; [[file:README.org::*Keybindings][Keybindings:2]]
+;; [[file:README.org::*VSCode][VSCode:1]]
 (require 'eglot)
 (context-menu-mode t)  ;; Enables right clicking in GUI mode.
 (define-key eglot-mode-map   (kbd "C-.")     #'eglot-code-actions)
@@ -114,21 +132,21 @@ doom-modeline-hud t)
 (define-key flymake-mode-map (kbd "S-<f8>")  #'flymake-goto-prev-error)
 (define-key eglot-mode-map   (kbd "<f12>")   #'xref-find-definitions)
 (define-key eglot-mode-map   (kbd "S-<f12>") #'xref-find-references)
-;; For some reason, Emacs links C-SPC and C-@ so we have to set both.
+;; Emacs links C-SPC and C-@ so we have to set both.
 (evil-define-key 'insert company-mode-map (kbd "C-@")   #'company-complete)
 (evil-define-key 'insert company-mode-map (kbd "C-SPC") #'company-complete)
-;; Keybindings:2 ends here
+;; VSCode:1 ends here
 
 
 
 ;; For some reason, visual-line-mode + disabling truncate lines helps smooth scrolling.
 
 
-;; [[file:README.org::*Keybindings][Keybindings:3]]
+;; [[file:README.org::*VSCode][VSCode:2]]
 (global-visual-line-mode t)
 (toggle-truncate-lines 1)
 (setq-default scroll-conservatively 100)
-;; Keybindings:3 ends here
+;; VSCode:2 ends here
 
 ;; Editing
 
@@ -139,8 +157,9 @@ doom-modeline-hud t)
  fill-column 80
  ;; TODO: Consider changing the default tab width.
  tab-width 2)
-(add-hook 'prog-mode-hook #'auto-fill-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)
+(add-hook 'prog-mode-hook #'auto-fill-mode)
+(add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 ;; Editing:1 ends here
 
@@ -264,7 +283,7 @@ Diff HL provides the state (+/-/modified) to the left of the line numbers."
 (defun hm-focus ()
   "Helps you focus."
   (interactive)
-  (message "Focus... Your dad's here."))
+  (message "Focus! Your dad's here."))
 ;; Focus:1 ends here
 
 ;; Open File In Chrome

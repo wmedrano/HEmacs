@@ -3,8 +3,11 @@
 
 * Introduction
 
-An Emacs configuration for VIM users. To install:
+An Emacs configuration for VIM users.
 
+[[file:screenshot.png]]
+
+To install:
 
 1. Clone the config from the home directory with:
 
@@ -22,12 +25,107 @@ git clone https://github.com/wmedrano/hemacs .emacs.d
 For the initial trial period, you may notice some noisy messages caused by Emacs
 byte compiling packages for the first time.
 
+** Tips
+
+1. =C-g= is the =Ctrl+Alt+Del= of Emacs. Mashing this usually quits you out of
+   any nested function calls.
+2. Mostly everything is tweakable. Make any feature request.
+3. Emacs in GUI mode has a bit more features than terminal mode. For example, it
+   can display images which is useful for things like Markdown preview.
+4. Emacs interactive functions are accessed through the =M-x= key where =M= is
+=Alt=. Some useful functions (that can be mapped to keys if desired) are:
+
+*Note*: =counsel-rg= requires installing ripgrep.
+
+#+begin_src emacs-lisp
+  (let (
+        (make-row (lambda (fn)
+                    (if (stringp fn) `(,fn "")
+                      (list fn (ivy-rich-counsel-function-docstring fn)))
+                    ))
+        (functions `(
+                     "*Basic*"
+                     ,#'find-file
+                     ,#'counsel-find-file
+                     ,#'counsel-switch-buffer
+                     ,#'kill-buffer
+                     ,#'hm-find-file-in-chrome
+                     ,#'hm-focus
+                     "*Project*"
+                     ,#'project-find-file
+                     ,#'project-display-buffer
+                     ,#'project-compile
+                     ,#'project-find-regex
+                     "*Editing*"
+                     ,#'sort-lines
+                     ,#'ivy-emoji
+                     "*Searching*"
+                     ,#'swiper
+                     ,#'swiper-all
+                     ,#'counsel-rg
+                     "*Smart Stuff*"
+                     ,#'eldoc
+                     ,#'eldoc-display-in-buffer
+                     ,#'eglot-format-buffer
+                     ,#'eglot-code-actions
+                     ,#'eglot-rename
+                     ,#'xref-find-definitions
+                     ,#'xref-find-references
+                     ,#'flymake-show-buffer-diagnostics
+                     ,#'flymake-show-project-diagnostics
+                     ,#'flymake-goto-next-error
+                     ,#'flymake-goto-prev-error
+                     "*Help*"
+                     ,#'counsel-describe-function
+                     ,#'counsel-describe-variable
+                     ,#'describe-key
+                     )))
+    (mapcar make-row  functions))
+#+end_src
+
+#+RESULTS:
+| *Basic*                          |                                                                              |
+| find-file                        | Edit file FILENAME.                                                          |
+| counsel-find-file                | Forward to ‘find-file’.                                                      |
+| counsel-switch-buffer            | Switch to another buffer.                                                    |
+| kill-buffer                      | Kill the buffer specified by BUFFER-OR-NAME.                                 |
+| hm-find-file-in-chrome           | Open FILE in Chrome.                                                         |
+| hm-focus                         | Helps you focus.                                                             |
+| *Project*                        |                                                                              |
+| project-find-file                | Visit a file (with completion) in the current project.                       |
+| project-display-buffer           | Display BUFFER-OR-NAME in some window, without selecting it.                 |
+| project-compile                  | Run ‘compile’ in the project root.                                           |
+| project-find-regex               |                                                                              |
+| *Editing*                        |                                                                              |
+| sort-lines                       | Sort lines in region alphabetically; REVERSE non-nil means descending order. |
+| ivy-emoji                        | Select an emoji and insert it.                                               |
+| *Searching*                      |                                                                              |
+| swiper                           | ‘isearch-forward’ with an overview.                                          |
+| swiper-all                       | Run ‘swiper’ for all open buffers.                                           |
+| counsel-rg                       | Grep for a string in the current directory using ‘rg’.                       |
+| *Smart Stuff*                    |                                                                              |
+| eldoc                            | Document thing at point.                                                     |
+| eldoc-display-in-buffer          | Display DOCS in a dedicated buffer.                                          |
+| eglot-format-buffer              | Format contents of current buffer.                                           |
+| eglot-code-actions               | Find LSP code actions of type ACTION-KIND between BEG and END.               |
+| eglot-rename                     | Rename the current symbol to NEWNAME.                                        |
+| xref-find-definitions            | Find the definition of the identifier at point.                              |
+| xref-find-references             | Find references to the identifier at point.                                  |
+| flymake-show-buffer-diagnostics  | Show a list of Flymake diagnostics for current buffer.                       |
+| flymake-show-project-diagnostics | Show a list of Flymake diagnostics for the current project.                  |
+| flymake-goto-next-error          | Go to Nth next Flymake diagnostic that matches FILTER.                       |
+| flymake-goto-prev-error          | Go to Nth previous Flymake diagnostic that matches FILTER.                   |
+| *Help*                           |                                                                              |
+| counsel-describe-function        | Forward to ‘describe-function’.                                              |
+| counsel-describe-variable        | Forward to ‘describe-variable’.                                              |
+| describe-key                     | Display documentation of the function invoked by KEY-LIST.                   |
+
 ** Dependencies
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (custom-set-variables
    '(package-selected-packages
-     '(htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil)))
+     '(auto-highlight-symbol-mode evil-anzu ivy-emoji htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil yaml-mode)))
 #+end_src
 
 ** Fonts
@@ -39,7 +137,7 @@ mode, it must also be set as the default font. This can be edited in the
 custom-set-faces variable. The default value is "JetBrainsMono Nerd Font" which
 works fine if you downloaded and installed the "JetBrainsMono Nerd Font"
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (custom-set-faces
     ;; custom-set-faces was added by Custom.
     ;; If you edit it by hand, you could mess it up, so be careful.
@@ -53,10 +151,10 @@ works fine if you downloaded and installed the "JetBrainsMono Nerd Font"
 We point our package manager to [[https://melpa.org]]. Melpa contains lots of useful
 packages.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
 #+end_src
 
 ** Help
@@ -68,7 +166,7 @@ To view documentation for a function, use the Emacs built-in keybinding "C-h
 f" to jump to the documentation for a function and "C-h v" to jump to the
 documentation for a variable.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'which-key)
   (which-key-mode t)
 #+end_src
@@ -80,7 +178,7 @@ For theming we use atom dark theme. For the modeline we use doom since it
 looks pretty. We also remove some very retro stuff and add some basics like
 the line number.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'atom-one-dark-theme)
   (require 'doom-modeline)
   (setq-default
@@ -101,27 +199,48 @@ the line number.
 
 * Keybindings
 
+** VIM
+
 For keybindings we use evil to provide a VIM like experience. We also add
 additional keybindings that are similar to VSCode. To learn what a function
 does, use "C-h f". For example: "C-h f eglot-code-actions RET" will show
 documentation for the function eglot-code-actions.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   ;; Usually we require first but evil needs to know some of the variables at init
   ;; time.
   (setq-default evil-want-C-u-scroll t)
   (require 'evil)
+  (require 'evil-anzu)
+  (require 'anzu)
   (evil-mode t)
+  (global-anzu-mode t);; To show number of search matches in modeline.
+#+end_src
 
-  ;; Modes that you cannot insert text into.
+*** Motion State
+
+Evil motion state is similar to normal state but does not allow entering insert
+mode.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (add-to-list 'evil-motion-state-modes 'dired-mode)
   (add-to-list 'evil-motion-state-modes 'magit-diff-mode)
+  (add-to-list 'evil-motion-state-modes 'magit-status-mode)
   (add-to-list 'evil-motion-state-modes 'special-mode)
+
+  (defun hm-evil-define-normal-key-only (key fn)
+    "Maps KEY to FN, but only in normal mode.
+  Motion state will be unbounded."
+    (define-key evil-motion-state-map key nil)
+    (define-key evil-normal-state-map key fn))
+  (hm-evil-define-normal-key-only (kbd "RET") #'evil-ret)
 #+end_src
+
+** VSCode
 
 The below are taken from VSCode.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'eglot)
   (context-menu-mode t)  ;; Enables right clicking in GUI mode.
   (define-key eglot-mode-map   (kbd "C-.")     #'eglot-code-actions)
@@ -130,14 +249,14 @@ The below are taken from VSCode.
   (define-key flymake-mode-map (kbd "S-<f8>")  #'flymake-goto-prev-error)
   (define-key eglot-mode-map   (kbd "<f12>")   #'xref-find-definitions)
   (define-key eglot-mode-map   (kbd "S-<f12>") #'xref-find-references)
-  ;; For some reason, Emacs links C-SPC and C-@ so we have to set both.
+  ;; Emacs links C-SPC and C-@ so we have to set both.
   (evil-define-key 'insert company-mode-map (kbd "C-@")   #'company-complete)
   (evil-define-key 'insert company-mode-map (kbd "C-SPC") #'company-complete)
 #+end_src
 
 For some reason, visual-line-mode + disabling truncate lines helps smooth scrolling.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (global-visual-line-mode t)
   (toggle-truncate-lines 1)
   (setq-default scroll-conservatively 100)
@@ -145,20 +264,21 @@ For some reason, visual-line-mode + disabling truncate lines helps smooth scroll
 
 ** Editing
 
-#+begin_src emacs-lisp :tangle init.el :comments both
-(setq-default
- indent-tabs-mode nil
- fill-column 80
- ;; TODO: Consider changing the default tab width.
- tab-width 2)
-(add-hook 'prog-mode-hook #'auto-fill-mode)
-(add-hook 'text-mode-hook #'auto-fill-mode)
-(add-hook 'before-save-hook #'delete-trailing-whitespace)
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (setq-default
+   indent-tabs-mode nil
+   fill-column 80
+   ;; TODO: Consider changing the default tab width.
+   tab-width 2)
+  (add-hook 'text-mode-hook #'auto-fill-mode)
+  (add-hook 'prog-mode-hook #'auto-fill-mode)
+  (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
 #+end_src
 
 * Files
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (setq-default
    backup-inhibited t
    ring-bell-function 'ignore)
@@ -180,7 +300,7 @@ packages. Those packages are:
 - Company for displaying and selecting code completions.
 - xref for jumping to definitions and references.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'eglot)    ;; Most of the "IDE" stuff.
   (require 'company)  ;; Autocompletion frontend.
   (global-company-mode t)
@@ -188,7 +308,7 @@ packages. Those packages are:
 
 ** Emacs Lisp
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun set-up-emacs-lisp-mode ()
     "Set up Emacs Lisp mode."
     (dolist (path load-path)
@@ -198,7 +318,7 @@ packages. Those packages are:
 
 ** Rust
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun set-up-rust-mode ()
     "Set up Rust mode."
     (eglot-ensure)
@@ -208,7 +328,7 @@ packages. Those packages are:
 
 ** TypeScript
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun set-up-typescript-mode ()
     "Set up TypeScript mode."
     (eglot-ensure)
@@ -221,7 +341,7 @@ packages. Those packages are:
 Note: This refers to completions within Emacs, and not within code. Completions
 within Emacs involves things like selecting a file or buffer.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'counsel)
   (require 'ivy)
   (ivy-mode t)
@@ -234,7 +354,7 @@ We use some "ivy rich" modes to apply better styling to some of the completion
 functions. This includes things like adding icons, file size information, and
 inline documentation.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'ivy-rich)
   (require 'nerd-icons-ivy-rich)
   ;; Since we initialize some rich variables later in the file, we must defer
@@ -245,7 +365,7 @@ inline documentation.
 
 * Version Control
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'diff-hl)
   (defun set-up-diff-hl-mode ()
     "Set up diff hl.
@@ -259,6 +379,11 @@ inline documentation.
   (global-diff-hl-mode t)
 #+end_src
 
+** TODO Git
+
+The =magit= package provides Git commands from within Emacs. People seem to
+really like it so consider adding a section for it.
+
 * Utils
 
 Some custom utilities. Functions that are labeled `(interactive)` can be run
@@ -266,18 +391,18 @@ with "M-x <name-of-function>"
 
 ** Focus
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun hm-focus ()
     "Helps you focus."
     (interactive)
-    (message "Focus... Your dad's here."))
+    (message "Focus! Your dad's here."))
 #+end_src
 
 ** Open File In Chrome
 
 ~hm-find-file-in-chrome~ prompts for a file and opens it in chrome.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun hm-clone-ivy-display-transformers (src dst)
     "Applies ivy completion styling from function SRC to function DST.
   Note: This must be run before the mode is enabled."
@@ -301,7 +426,7 @@ with "M-x <name-of-function>"
 
 Required to signal that this file is providing the ~'init~ package.
 
-#+begin_src emacs-lisp :tangle init.el :comments both
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (provide 'init)
   ;;; init.el ends here
 #+end_src
