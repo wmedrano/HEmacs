@@ -2,6 +2,9 @@
 #+author: Will Medrano
 
 * Introduction
+:PROPERTIES:
+:CUSTOM_ID: Introduction-tq92c0o0yuj0
+:END:
 
 An Emacs configuration for VIM users.
 
@@ -26,6 +29,9 @@ For the initial trial period, you may notice some noisy messages caused by Emacs
 byte compiling packages for the first time.
 
 ** Tips
+:PROPERTIES:
+:CUSTOM_ID: IntroductionTips-khc2c0o0yuj0
+:END:
 
 1. =C-g= is the =Ctrl+Alt+Del= of Emacs. Mashing this usually quits you out of
    any nested function calls.
@@ -61,6 +67,7 @@ byte compiling packages for the first time.
                      ,#'swiper
                      ,#'swiper-all
                      ,#'counsel-rg
+                     ,#'project-find-regexp
                      "*Smart Stuff*"
                      ,#'eldoc
                      ,#'eldoc-display-in-buffer
@@ -87,7 +94,7 @@ byte compiling packages for the first time.
 | counsel-find-file                | Forward to ‘find-file’.                                                      |
 | counsel-switch-buffer            | Switch to another buffer.                                                    |
 | kill-buffer                      | Kill the buffer specified by BUFFER-OR-NAME.                                 |
-| hm-find-file-in-chrome           | Open FILE in Chrome.                                                         |
+| hm-find-file-in-chrome           | Prompt for a file and open it in Chrome.                                     |
 | hm-focus                         | Helps you focus.                                                             |
 | *Project*                        |                                                                              |
 | project-find-file                | Visit a file (with completion) in the current project.                       |
@@ -101,6 +108,7 @@ byte compiling packages for the first time.
 | swiper                           | ‘isearch-forward’ with an overview.                                          |
 | swiper-all                       | Run ‘swiper’ for all open buffers.                                           |
 | counsel-rg                       | Grep for a string in the current directory using ‘rg’.                       |
+| project-find-regexp              | Find all matches for REGEXP in the current project’s roots.                  |
 | *Smart Stuff*                    |                                                                              |
 | eldoc                            | Document thing at point.                                                     |
 | eldoc-display-in-buffer          | Display DOCS in a dedicated buffer.                                          |
@@ -121,14 +129,20 @@ byte compiling packages for the first time.
 *Note*: =counsel-rg= requires installing ripgrep.
 
 ** Dependencies
+:PROPERTIES:
+:CUSTOM_ID: IntroductionDependencies-78e2c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (custom-set-variables
    '(package-selected-packages
-     '(auto-highlight-symbol-mode evil-anzu ivy-emoji htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil yaml-mode)))
+     '(chatgpt-shell auto-highlight-symbol-mode evil-anzu ivy-emoji htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil yaml-mode)))
 #+end_src
 
 ** Fonts
+:PROPERTIES:
+:CUSTOM_ID: IntroductionFonts-2sf2c0o0yuj0
+:END:
 
 For icons in the terminal, install a Nerd Font and set it as the terminal's
 font. Nerd fonts are normal fonts patched to have
@@ -147,6 +161,9 @@ works fine if you downloaded and installed the "JetBrainsMono Nerd Font"
 #+end_src
 
 ** Package Manager
+:PROPERTIES:
+:CUSTOM_ID: IntroductionPackageManager-1dh2c0o0yuj0
+:END:
 
 We point our package manager to [[https://melpa.org]]. Melpa contains lots of useful
 packages.
@@ -158,6 +175,9 @@ packages.
 #+end_src
 
 ** Help
+:PROPERTIES:
+:CUSTOM_ID: IntroductionHelp-2xi2c0o0yuj0
+:END:
 
 Which key is used to display a popup of valid keys after a prefix and the
 functions that they run.
@@ -192,6 +212,9 @@ See also ‘evil-goto-definition-functions’.
 #+end_example
 
 * Theming
+:PROPERTIES:
+:CUSTOM_ID: Theming-8gk2c0o0yuj0
+:END:
 
 For theming we use atom dark theme. For the modeline we use doom since it
 looks pretty. We also remove some very retro stuff and add some basics like
@@ -217,8 +240,14 @@ the line number.
 #+end_src
 
 * Keybindings
+:PROPERTIES:
+:CUSTOM_ID: Keybindings-uxl2c0o0yuj0
+:END:
 
 ** VIM
+:PROPERTIES:
+:CUSTOM_ID: KeybindingsVIM-yfn2c0o0yuj0
+:END:
 
 For keybindings we use evil to provide a VIM like experience. We also add
 additional keybindings that are similar to VSCode. To learn what a function
@@ -237,6 +266,9 @@ documentation for the function eglot-code-actions.
 #+end_src
 
 *** Motion State
+:PROPERTIES:
+:CUSTOM_ID: KeybindingsVIMMotionState-fzo2c0o0yuj0
+:END:
 
 Evil motion state is similar to normal state but does not allow entering insert
 mode.
@@ -257,6 +289,9 @@ mode.
 #+end_src
 
 ** VSCode
+:PROPERTIES:
+:CUSTOM_ID: KeybindingsVSCode-6kq2c0o0yuj0
+:END:
 
 The below are taken from VSCode.
 
@@ -274,15 +309,18 @@ The below are taken from VSCode.
   (evil-define-key 'insert company-mode-map (kbd "C-SPC") #'company-complete)
 #+end_src
 
-For some reason, visual-line-mode + disabling truncate lines helps smooth scrolling.
+*TODO:* Play around with the settings. Scrolling isn't always smooth.
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
-  (global-visual-line-mode t)
+  (visual-line-mode t)
   (toggle-truncate-lines 1)
   (setq-default scroll-conservatively 100)
 #+end_src
 
 ** Editing
+:PROPERTIES:
+:CUSTOM_ID: KeybindingsEditing-p2s2c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (setq-default
@@ -297,6 +335,9 @@ For some reason, visual-line-mode + disabling truncate lines helps smooth scroll
 #+end_src
 
 * Files
+:PROPERTIES:
+:CUSTOM_ID: Files-sit2c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (setq-default
@@ -310,6 +351,9 @@ For some reason, visual-line-mode + disabling truncate lines helps smooth scroll
 #+end_src
 
 * IDE Features
+:PROPERTIES:
+:CUSTOM_ID: IDEFeatures-1zu2c0o0yuj0
+:END:
 
 IDE features are powered by Eglot. Eglot interacts with LSP servers. Although
 Eglot interacts with LSP servers, it delegates the frontend to other
@@ -327,6 +371,9 @@ packages. Those packages are:
 #+end_src
 
 ** Emacs Lisp
+:PROPERTIES:
+:CUSTOM_ID: IDEFeaturesEmacsLisp-zgw2c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun set-up-emacs-lisp-mode ()
@@ -337,6 +384,9 @@ packages. Those packages are:
 #+end_src
 
 ** Rust
+:PROPERTIES:
+:CUSTOM_ID: IDEFeaturesRust-xzx2c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun set-up-rust-mode ()
@@ -347,6 +397,9 @@ packages. Those packages are:
 #+end_src
 
 ** TypeScript
+:PROPERTIES:
+:CUSTOM_ID: IDEFeaturesTypeScript-0iz2c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun set-up-typescript-mode ()
@@ -357,6 +410,9 @@ packages. Those packages are:
 #+end_src
 
 * Completions
+:PROPERTIES:
+:CUSTOM_ID: Completions-jt03c0o0yuj0
+:END:
 
 Note: This refers to completions within Emacs, and not within code. Completions
 within Emacs involves things like selecting a file or buffer.
@@ -384,6 +440,9 @@ inline documentation.
 #+end_src
 
 * Version Control
+:PROPERTIES:
+:CUSTOM_ID: VersionControl-bw13c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (require 'diff-hl)
@@ -401,16 +460,25 @@ inline documentation.
 #+end_src
 
 ** TODO Git
+:PROPERTIES:
+:CUSTOM_ID: VersionControlGit-n033c0o0yuj0
+:END:
 
 The =magit= package provides Git commands from within Emacs. People seem to
 really like it so consider adding a section for it.
 
 * Utils
+:PROPERTIES:
+:CUSTOM_ID: Utils-uz33c0o0yuj0
+:END:
 
 Some custom utilities. Functions that are labeled `(interactive)` can be run
 with "M-x <name-of-function>"
 
 ** Focus
+:PROPERTIES:
+:CUSTOM_ID: UtilsFocus-mw43c0o0yuj0
+:END:
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun hm-focus ()
@@ -420,6 +488,9 @@ with "M-x <name-of-function>"
 #+end_src
 
 ** Open File In Chrome
+:PROPERTIES:
+:CUSTOM_ID: UtilsOpenFileInChrome-9u53c0o0yuj0
+:END:
 
 ~hm-find-file-in-chrome~ prompts for a file and opens it in chrome.
 
@@ -445,6 +516,9 @@ with "M-x <name-of-function>"
 #+end_src
 
 * End
+:PROPERTIES:
+:CUSTOM_ID: End-xq63c0o0yuj0
+:END:
 
 Required to signal that this file is providing the ~'init~ package.
 

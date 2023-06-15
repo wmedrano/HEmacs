@@ -144,7 +144,7 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::*VSCode][VSCode:2]]
-(global-visual-line-mode t)
+(visual-line-mode t)
 (toggle-truncate-lines 1)
 (setq-default scroll-conservatively 100)
 ;; VSCode:2 ends here
@@ -308,9 +308,7 @@ Note: This must be run before the rich modes are enabled."
          (plist-get nerd-icons-ivy-rich-display-transformers-list src))))
 
 (defun hm-find-file-in-chrome ()
-  "Open FILE in Chrome.
-
-Similar to `browse-url-chrome` but prompts for a file."
+  "Prompt for a file and open it in Chrome."
   (interactive)
   (counsel--find-file-1 "Open in chrome: " nil #'browse-url-chrome 'hm-find-file-in-chrome))
 (hm-clone-ivy-display-transformers 'counsel-find-file 'hm-find-file-in-chrome)
