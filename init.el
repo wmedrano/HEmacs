@@ -1,13 +1,24 @@
 ;; Dependencies
+;; :PROPERTIES:
+;; :CUSTOM_ID: IntroductionDependencies-78e2c0o0yuj0
+;; :END:
 
 
-;; [[file:README.org::*Dependencies][Dependencies:1]]
+;; [[file:README.org::#IntroductionDependencies-78e2c0o0yuj0][Dependencies:1]]
 (custom-set-variables
- '(package-selected-packages
-   '(auto-highlight-symbol-mode evil-anzu ivy-emoji htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil yaml-mode)))
+ '(package-selected-packages '(
+                               chatgpt-shell auto-highlight-symbol evil-anzu
+                               ivy-emoji htmlize markdown-mode diff-hl company
+                               rust-mode which-key magit doom-modeline
+                               nerd-icons-ivy-rich ivy-rich counsel ivy
+                               typescript-mode eglot atom-one-dark-theme evil
+                               yaml-mode)))
 ;; Dependencies:1 ends here
 
 ;; Fonts
+;; :PROPERTIES:
+;; :CUSTOM_ID: IntroductionFonts-2sf2c0o0yuj0
+;; :END:
 
 ;; For icons in the terminal, install a Nerd Font and set it as the terminal's
 ;; font. Nerd fonts are normal fonts patched to have
@@ -17,7 +28,7 @@
 ;; works fine if you downloaded and installed the "JetBrainsMono Nerd Font"
 
 
-;; [[file:README.org::*Fonts][Fonts:1]]
+;; [[file:README.org::#IntroductionFonts-2sf2c0o0yuj0][Fonts:1]]
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -27,18 +38,24 @@
 ;; Fonts:1 ends here
 
 ;; Package Manager
+;; :PROPERTIES:
+;; :CUSTOM_ID: IntroductionPackageManager-1dh2c0o0yuj0
+;; :END:
 
 ;; We point our package manager to [[https://melpa.org]]. Melpa contains lots of useful
 ;; packages.
 
 
-;; [[file:README.org::*Package Manager][Package Manager:1]]
+;; [[file:README.org::#IntroductionPackageManager-1dh2c0o0yuj0][Package Manager:1]]
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 ;; Package Manager:1 ends here
 
 ;; Help
+;; :PROPERTIES:
+;; :CUSTOM_ID: IntroductionHelp-2xi2c0o0yuj0
+;; :END:
 
 ;; Which key is used to display a popup of valid keys after a prefix and the
 ;; functions that they run.
@@ -48,19 +65,22 @@
 ;; documentation for a variable.
 
 
-;; [[file:README.org::*Help][Help:1]]
+;; [[file:README.org::#IntroductionHelp-2xi2c0o0yuj0][Help:1]]
 (require 'which-key)
 (which-key-mode t)
 ;; Help:1 ends here
 
 ;; Theming
+;; :PROPERTIES:
+;; :CUSTOM_ID: Theming-8gk2c0o0yuj0
+;; :END:
 
 ;; For theming we use atom dark theme. For the modeline we use doom since it
 ;; looks pretty. We also remove some very retro stuff and add some basics like
 ;; the line number.
 
 
-;; [[file:README.org::*Theming][Theming:1]]
+;; [[file:README.org::#Theming-8gk2c0o0yuj0][Theming:1]]
 (require 'atom-one-dark-theme)
 (require 'doom-modeline)
 (setq-default
@@ -79,7 +99,21 @@ doom-modeline-hud t)
 (column-number-mode t)
 ;; Theming:1 ends here
 
+
+
+;; Disable the janky tool bar and scrollbar but leave the janky menu bar.
+
+
+;; [[file:README.org::#Theming-8gk2c0o0yuj0][Theming:2]]
+(menu-bar-mode t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+;; Theming:2 ends here
+
 ;; VIM
+;; :PROPERTIES:
+;; :CUSTOM_ID: KeybindingsVIM-yfn2c0o0yuj0
+;; :END:
 
 ;; For keybindings we use evil to provide a VIM like experience. We also add
 ;; additional keybindings that are similar to VSCode. To learn what a function
@@ -87,7 +121,7 @@ doom-modeline-hud t)
 ;; documentation for the function eglot-code-actions.
 
 
-;; [[file:README.org::*VIM][VIM:1]]
+;; [[file:README.org::#KeybindingsVIM-yfn2c0o0yuj0][VIM:1]]
 ;; Usually we require first but evil needs to know some of the variables at init
 ;; time.
 (setq-default evil-want-C-u-scroll t)
@@ -99,12 +133,15 @@ doom-modeline-hud t)
 ;; VIM:1 ends here
 
 ;; Motion State
+;; :PROPERTIES:
+;; :CUSTOM_ID: KeybindingsVIMMotionState-fzo2c0o0yuj0
+;; :END:
 
 ;; Evil motion state is similar to normal state but does not allow entering insert
 ;; mode.
 
 
-;; [[file:README.org::*Motion State][Motion State:1]]
+;; [[file:README.org::#KeybindingsVIMMotionState-fzo2c0o0yuj0][Motion State:1]]
 (add-to-list 'evil-motion-state-modes 'dired-mode)
 (add-to-list 'evil-motion-state-modes 'magit-diff-mode)
 (add-to-list 'evil-motion-state-modes 'magit-status-mode)
@@ -120,11 +157,14 @@ Motion state will be unbounded."
 ;; Motion State:1 ends here
 
 ;; VSCode
+;; :PROPERTIES:
+;; :CUSTOM_ID: KeybindingsVSCode-6kq2c0o0yuj0
+;; :END:
 
 ;; The below are taken from VSCode.
 
 
-;; [[file:README.org::*VSCode][VSCode:1]]
+;; [[file:README.org::#KeybindingsVSCode-6kq2c0o0yuj0][VSCode:1]]
 (require 'eglot)
 (context-menu-mode t)  ;; Enables right clicking in GUI mode.
 (define-key eglot-mode-map   (kbd "C-.")     #'eglot-code-actions)
@@ -140,24 +180,28 @@ Motion state will be unbounded."
 
 
 
-;; For some reason, visual-line-mode + disabling truncate lines helps smooth scrolling.
+;; *TODO:* Play around with the settings. Scrolling isn't always smooth.
 
 
-;; [[file:README.org::*VSCode][VSCode:2]]
+;; [[file:README.org::#KeybindingsVSCode-6kq2c0o0yuj0][VSCode:2]]
 (visual-line-mode t)
 (toggle-truncate-lines 1)
 (setq-default scroll-conservatively 100)
 ;; VSCode:2 ends here
 
 ;; Editing
+;; :PROPERTIES:
+;; :CUSTOM_ID: KeybindingsEditing-p2s2c0o0yuj0
+;; :END:
 
 
-;; [[file:README.org::*Editing][Editing:1]]
+;; [[file:README.org::#KeybindingsEditing-p2s2c0o0yuj0][Editing:1]]
 (setq-default
  indent-tabs-mode nil
  fill-column 80
  ;; TODO: Consider changing the default tab width.
- tab-width 2)
+ tab-width 2
+ ahs-idle-interval 0.25)
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'prog-mode-hook #'auto-fill-mode)
 (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
@@ -165,20 +209,20 @@ Motion state will be unbounded."
 ;; Editing:1 ends here
 
 ;; Files
+;; :PROPERTIES:
+;; :CUSTOM_ID: Files-sit2c0o0yuj0
+;; :END:
 
 
-;; [[file:README.org::*Files][Files:1]]
+;; [[file:README.org::#Files-sit2c0o0yuj0][Files:1]]
 (setq-default
  backup-inhibited t
  ring-bell-function 'ignore)
 (auto-save-mode nil)
 (global-auto-revert-mode t)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 ;; Files:1 ends here
 
-;; IDE Features
+;; Eglot
 
 ;; IDE features are powered by Eglot. Eglot interacts with LSP servers. Although
 ;; Eglot interacts with LSP servers, it delegates the frontend to other
@@ -190,52 +234,57 @@ Motion state will be unbounded."
 ;; - xref for jumping to definitions and references.
 
 
-;; [[file:README.org::*IDE Features][IDE Features:1]]
-(require 'eglot)    ;; Most of the "IDE" stuff.
-(require 'company)  ;; Autocompletion frontend.
+;; [[file:README.org::*Eglot][Eglot:1]]
+(require 'eglot)
+(add-hook 'typescript-mode-hook #'eglot-ensure)
+(add-hook 'rust-mode-hook       #'eglot-ensure)
+;; Eglot:1 ends here
+
+;; Company
+
+;; Company is an autocompletion framework.
+
+
+;; [[file:README.org::*Company][Company:1]]
+(require 'company)
+(setq-default company-tooltip-width-grow-only t)
 (global-company-mode t)
-;; IDE Features:1 ends here
+;; Company:1 ends here
 
-;; Emacs Lisp
+;; Flymake
+;; :PROPERTIES:
+;; :CUSTOM_ID: IDEFeaturesEmacsLisp-zgw2c0o0yuj0
+;; :END:
 
-
-;; [[file:README.org::*Emacs Lisp][Emacs Lisp:1]]
-(defun set-up-emacs-lisp-mode ()
-  "Set up Emacs Lisp mode."
-  (dolist (path load-path)
-    (add-to-list 'elisp-flymake-byte-compile-load-path path)))
-(add-hook 'emacs-lisp-mode-hook #'set-up-emacs-lisp-mode)
-;; Emacs Lisp:1 ends here
-
-;; Rust
+;; Make ELisp aware of the installed packages.
 
 
-;; [[file:README.org::*Rust][Rust:1]]
-(defun set-up-rust-mode ()
-  "Set up Rust mode."
-  (eglot-ensure)
-  (add-hook 'before-save-hook #'eglot-format-buffer nil t))
-(add-hook 'rust-mode-hook #'set-up-rust-mode)
-;; Rust:1 ends here
+;; [[file:README.org::#IDEFeaturesEmacsLisp-zgw2c0o0yuj0][Flymake:1]]
+(dolist (path load-path)
+   (add-to-list 'elisp-flymake-byte-compile-load-path path))
+;; Flymake:1 ends here
 
-;; TypeScript
+;; Code Formatting
 
 
-;; [[file:README.org::*TypeScript][TypeScript:1]]
-(defun set-up-typescript-mode ()
-  "Set up TypeScript mode."
-  (eglot-ensure)
-  (add-hook 'before-save-hook #'eglot-format-buffer nil t))
-(add-hook 'typescript-mode-hook #'set-up-typescript-mode)
-;; TypeScript:1 ends here
+;; [[file:README.org::*Code Formatting][Code Formatting:1]]
+(defun eglot-format-before-save ()
+  "Set up format before save."
+  (add-hook 'before-save-hook #'eglot-format-buffer 0 t))
+(add-hook 'typescript-mode-hook #'eglot-format-before-save)
+(add-hook 'rust-mode-hook       #'eglot-format-before-save)
+;; Code Formatting:1 ends here
 
 ;; Completions
+;; :PROPERTIES:
+;; :CUSTOM_ID: Completions-jt03c0o0yuj0
+;; :END:
 
 ;; Note: This refers to completions within Emacs, and not within code. Completions
 ;; within Emacs involves things like selecting a file or buffer.
 
 
-;; [[file:README.org::*Completions][Completions:1]]
+;; [[file:README.org::#Completions-jt03c0o0yuj0][Completions:1]]
 (require 'counsel)
 (require 'ivy)
 (ivy-mode t)
@@ -251,7 +300,7 @@ Motion state will be unbounded."
 ;; inline documentation.
 
 
-;; [[file:README.org::*Completions][Completions:2]]
+;; [[file:README.org::#Completions-jt03c0o0yuj0][Completions:2]]
 (require 'ivy-rich)
 (require 'nerd-icons-ivy-rich)
 ;; Since we initialize some rich variables later in the file, we must defer
@@ -260,10 +309,41 @@ Motion state will be unbounded."
 (add-hook 'after-init-hook #'nerd-icons-ivy-rich-mode)
 ;; Completions:2 ends here
 
+;; ChatGPT
+
+
+;; [[file:README.org::*ChatGPT][ChatGPT:1]]
+(require 'chatgpt-shell)
+(setq-default chatgpt-shell-openai-key (secrets-get-secret "Login" "emacs-openai-api-key"))
+(define-minor-mode hm-chatgpt-mode
+  "A custom minor mode for."
+  :lighter "hm-chatgpt"
+  :global t
+  :keymap (make-sparse-keymap))
+(hm-chatgpt-mode t)
+(defun chatgpt-shell-clear ()
+  "Clear the chatgpt-shell buffer by sending the command clear to the buffer."
+  (interactive)
+  (chatgpt-shell-send-to-buffer "clear"))
+(easy-menu-define hm-chatgpt-menu hm-chatgpt-mode-map
+  "Menu for ChatGPT related items."
+  '("ChatGPT"
+    ["Open Shell" chatgpt-shell
+     "Open the ChatGPT shell buffer."]
+    ["Send Region" chatgpt-shell-send-and-review-region
+     "Send the region to the ChatGPT buffer."]
+    ["Clear" chatgpt-shell-clear
+     "Clear the ChatGPT buffer. This clears the chat context."]
+    ))
+;; ChatGPT:1 ends here
+
 ;; Version Control
+;; :PROPERTIES:
+;; :CUSTOM_ID: VersionControl-bw13c0o0yuj0
+;; :END:
 
 
-;; [[file:README.org::*Version Control][Version Control:1]]
+;; [[file:README.org::#VersionControl-bw13c0o0yuj0][Version Control:1]]
 (require 'diff-hl)
 (defun set-up-diff-hl-mode ()
   "Set up diff hl.
@@ -279,9 +359,12 @@ Diff HL provides the state (+/-/modified) to the left of the line numbers."
 ;; Version Control:1 ends here
 
 ;; Focus
+;; :PROPERTIES:
+;; :CUSTOM_ID: UtilsFocus-mw43c0o0yuj0
+;; :END:
 
 
-;; [[file:README.org::*Focus][Focus:1]]
+;; [[file:README.org::#UtilsFocus-mw43c0o0yuj0][Focus:1]]
 (defun hm-focus ()
   "Helps you focus."
   (interactive)
@@ -289,11 +372,14 @@ Diff HL provides the state (+/-/modified) to the left of the line numbers."
 ;; Focus:1 ends here
 
 ;; Open File In Chrome
+;; :PROPERTIES:
+;; :CUSTOM_ID: UtilsOpenFileInChrome-9u53c0o0yuj0
+;; :END:
 
 ;; ~hm-find-file-in-chrome~ prompts for a file and opens it in chrome.
 
 
-;; [[file:README.org::*Open File In Chrome][Open File In Chrome:1]]
+;; [[file:README.org::#UtilsOpenFileInChrome-9u53c0o0yuj0][Open File In Chrome:1]]
 (defun hm-clone-ivy-display-transformers (src dst)
   "Applies ivy completion styling from function SRC to function DST.
 
@@ -315,11 +401,14 @@ Note: This must be run before the rich modes are enabled."
 ;; Open File In Chrome:1 ends here
 
 ;; End
+;; :PROPERTIES:
+;; :CUSTOM_ID: End-xq63c0o0yuj0
+;; :END:
 
 ;; Required to signal that this file is providing the ~'init~ package.
 
 
-;; [[file:README.org::*End][End:1]]
+;; [[file:README.org::#End-xq63c0o0yuj0][End:1]]
 (provide 'init)
 ;;; init.el ends here
 ;; End:1 ends here

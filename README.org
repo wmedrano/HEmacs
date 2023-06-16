@@ -16,7 +16,7 @@ To install:
 
 #+begin_src
 cd
-git clone https://github.com/wmedrano/hemacs .emacs.d
+git clone https://github.com/wmedrano/hermacs .emacs.d
 #+end_src
 
 2. Startup and press ~M-x package-refresh-contents~. Note that ~M-x~ is ~Alt+x~. ~M~
@@ -135,8 +135,13 @@ byte compiling packages for the first time.
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (custom-set-variables
-   '(package-selected-packages
-     '(chatgpt-shell auto-highlight-symbol-mode evil-anzu ivy-emoji htmlize markdown-mode diff-hl company rust-mode which-key magit doom-modeline nerd-icons-ivy-rich ivy-rich counsel ivy typescript-mode eglot atom-one-dark-theme evil yaml-mode)))
+   '(package-selected-packages '(
+                                 chatgpt-shell auto-highlight-symbol evil-anzu
+                                 ivy-emoji htmlize markdown-mode diff-hl company
+                                 rust-mode which-key magit doom-modeline
+                                 nerd-icons-ivy-rich ivy-rich counsel ivy
+                                 typescript-mode eglot atom-one-dark-theme evil
+                                 yaml-mode)))
 #+end_src
 
 ** Fonts
@@ -239,6 +244,14 @@ the line number.
   (column-number-mode t)
 #+end_src
 
+Disable the janky tool bar and scrollbar but leave the janky menu bar.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (menu-bar-mode t)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+end_src
+
 * Keybindings
 :PROPERTIES:
 :CUSTOM_ID: Keybindings-uxl2c0o0yuj0
@@ -327,7 +340,8 @@ The below are taken from VSCode.
    indent-tabs-mode nil
    fill-column 80
    ;; TODO: Consider changing the default tab width.
-   tab-width 2)
+   tab-width 2
+   ahs-idle-interval 0.25)
   (add-hook 'text-mode-hook #'auto-fill-mode)
   (add-hook 'prog-mode-hook #'auto-fill-mode)
   (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
@@ -345,15 +359,14 @@ The below are taken from VSCode.
    ring-bell-function 'ignore)
   (auto-save-mode nil)
   (global-auto-revert-mode t)
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
 #+end_src
 
 * IDE Features
 :PROPERTIES:
 :CUSTOM_ID: IDEFeatures-1zu2c0o0yuj0
 :END:
+
+** Eglot
 
 IDE features are powered by Eglot. Eglot interacts with LSP servers. Although
 Eglot interacts with LSP servers, it delegates the frontend to other
@@ -365,48 +378,41 @@ packages. Those packages are:
 - xref for jumping to definitions and references.
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
-  (require 'eglot)    ;; Most of the "IDE" stuff.
-  (require 'company)  ;; Autocompletion frontend.
+  (require 'eglot)
+  (add-hook 'typescript-mode-hook #'eglot-ensure)
+  (add-hook 'rust-mode-hook       #'eglot-ensure)
+#+end_src
+
+** Company
+
+Company is an autocompletion framework.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (require 'company)
+  (setq-default company-tooltip-width-grow-only t)
   (global-company-mode t)
 #+end_src
 
-** Emacs Lisp
+** Flymake
 :PROPERTIES:
 :CUSTOM_ID: IDEFeaturesEmacsLisp-zgw2c0o0yuj0
 :END:
 
+Make ELisp aware of the installed packages.
+
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
-  (defun set-up-emacs-lisp-mode ()
-    "Set up Emacs Lisp mode."
-    (dolist (path load-path)
-      (add-to-list 'elisp-flymake-byte-compile-load-path path)))
-  (add-hook 'emacs-lisp-mode-hook #'set-up-emacs-lisp-mode)
+  (dolist (path load-path)
+     (add-to-list 'elisp-flymake-byte-compile-load-path path))
 #+end_src
 
-** Rust
-:PROPERTIES:
-:CUSTOM_ID: IDEFeaturesRust-xzx2c0o0yuj0
-:END:
+** Code Formatting
 
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
-  (defun set-up-rust-mode ()
-    "Set up Rust mode."
-    (eglot-ensure)
-    (add-hook 'before-save-hook #'eglot-format-buffer nil t))
-  (add-hook 'rust-mode-hook #'set-up-rust-mode)
-#+end_src
-
-** TypeScript
-:PROPERTIES:
-:CUSTOM_ID: IDEFeaturesTypeScript-0iz2c0o0yuj0
-:END:
-
-#+begin_src emacs-lisp :tangle init.el :comments both :results silent
-  (defun set-up-typescript-mode ()
-    "Set up TypeScript mode."
-    (eglot-ensure)
-    (add-hook 'before-save-hook #'eglot-format-buffer nil t))
-  (add-hook 'typescript-mode-hook #'set-up-typescript-mode)
+  (defun eglot-format-before-save ()
+    "Set up format before save."
+    (add-hook 'before-save-hook #'eglot-format-buffer 0 t))
+  (add-hook 'typescript-mode-hook #'eglot-format-before-save)
+  (add-hook 'rust-mode-hook       #'eglot-format-before-save)
 #+end_src
 
 * Completions
@@ -437,6 +443,33 @@ inline documentation.
   ;; enabling the modes.
   (add-hook 'after-init-hook #'ivy-rich-mode)
   (add-hook 'after-init-hook #'nerd-icons-ivy-rich-mode)
+#+end_src
+
+* ChatGPT
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (require 'chatgpt-shell)
+  (setq-default chatgpt-shell-openai-key (secrets-get-secret "Login" "emacs-openai-api-key"))
+  (define-minor-mode hm-chatgpt-mode
+    "A custom minor mode for."
+    :lighter "hm-chatgpt"
+    :global t
+    :keymap (make-sparse-keymap))
+  (hm-chatgpt-mode t)
+  (defun chatgpt-shell-clear ()
+    "Clear the chatgpt-shell buffer by sending the command clear to the buffer."
+    (interactive)
+    (chatgpt-shell-send-to-buffer "clear"))
+  (easy-menu-define hm-chatgpt-menu hm-chatgpt-mode-map
+    "Menu for ChatGPT related items."
+    '("ChatGPT"
+      ["Open Shell" chatgpt-shell
+       "Open the ChatGPT shell buffer."]
+      ["Send Region" chatgpt-shell-send-and-review-region
+       "Send the region to the ChatGPT buffer."]
+      ["Clear" chatgpt-shell-clear
+       "Clear the ChatGPT buffer. This clears the chat context."]
+      ))
 #+end_src
 
 * Version Control
