@@ -12,7 +12,8 @@
                                rust-mode which-key magit doom-modeline
                                nerd-icons-ivy-rich ivy-rich counsel ivy
                                typescript-mode eglot atom-one-dark-theme evil
-                               yaml-mode)))
+                               yaml-mode smartparens js2-mode
+                               volatile-highlights)))
 ;; Dependencies:1 ends here
 
 ;; Fonts
@@ -204,9 +205,19 @@ Motion state will be unbounded."
  ahs-idle-interval 0.25)
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'prog-mode-hook #'auto-fill-mode)
-(add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
 (add-hook 'before-save-hook #'delete-trailing-whitespace)
 ;; Editing:1 ends here
+
+
+
+;; Briefly highlight regions that are edited through things like pasting and
+;; undo.
+
+
+;; [[file:README.org::#KeybindingsEditing-p2s2c0o0yuj0][Editing:2]]
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+;; Editing:2 ends here
 
 ;; Files
 ;; :PROPERTIES:
@@ -266,6 +277,8 @@ Motion state will be unbounded."
 
 ;; Code Formatting
 
+;; Format the code before saving.
+
 
 ;; [[file:README.org::*Code Formatting][Code Formatting:1]]
 (defun eglot-format-before-save ()
@@ -274,6 +287,26 @@ Motion state will be unbounded."
 (add-hook 'typescript-mode-hook #'eglot-format-before-save)
 (add-hook 'rust-mode-hook       #'eglot-format-before-save)
 ;; Code Formatting:1 ends here
+
+
+
+;; Highlight the symbol at the current point.
+
+
+;; [[file:README.org::*Code Formatting][Code Formatting:2]]
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode t)
+;; Code Formatting:2 ends here
+
+
+
+;; Auto insert closing parentheses and braces.
+
+
+;; [[file:README.org::*Code Formatting][Code Formatting:3]]
+(require 'smartparens)
+(smartparens-global-mode t)
+;; Code Formatting:3 ends here
 
 ;; Completions
 ;; :PROPERTIES:
@@ -324,7 +357,8 @@ Motion state will be unbounded."
 (defun chatgpt-shell-clear ()
   "Clear the chatgpt-shell buffer by sending the command clear to the buffer."
   (interactive)
-  (chatgpt-shell-send-to-buffer "clear"))
+  (with-current-buffer "*chatgpt*"
+    (chatgpt-shell-send-to-buffer "clear")))
 (easy-menu-define hm-chatgpt-menu hm-chatgpt-mode-map
   "Menu for ChatGPT related items."
   '("ChatGPT"

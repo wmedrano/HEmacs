@@ -141,7 +141,8 @@ byte compiling packages for the first time.
                                  rust-mode which-key magit doom-modeline
                                  nerd-icons-ivy-rich ivy-rich counsel ivy
                                  typescript-mode eglot atom-one-dark-theme evil
-                                 yaml-mode)))
+                                 yaml-mode smartparens js2-mode
+                                 volatile-highlights)))
 #+end_src
 
 ** Fonts
@@ -344,8 +345,15 @@ The below are taken from VSCode.
    ahs-idle-interval 0.25)
   (add-hook 'text-mode-hook #'auto-fill-mode)
   (add-hook 'prog-mode-hook #'auto-fill-mode)
-  (add-hook 'prog-mode-hook #'auto-highlight-symbol-mode)
   (add-hook 'before-save-hook #'delete-trailing-whitespace)
+#+end_src
+
+Briefly highlight regions that are edited through things like pasting and
+undo.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (require 'volatile-highlights)
+  (volatile-highlights-mode t)
 #+end_src
 
 * Files
@@ -407,12 +415,28 @@ Make ELisp aware of the installed packages.
 
 ** Code Formatting
 
+Format the code before saving.
+
 #+begin_src emacs-lisp :tangle init.el :comments both :results silent
   (defun eglot-format-before-save ()
     "Set up format before save."
     (add-hook 'before-save-hook #'eglot-format-buffer 0 t))
   (add-hook 'typescript-mode-hook #'eglot-format-before-save)
   (add-hook 'rust-mode-hook       #'eglot-format-before-save)
+#+end_src
+
+Highlight the symbol at the current point.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (require 'auto-highlight-symbol)
+  (global-auto-highlight-symbol-mode t)
+#+end_src
+
+Auto insert closing parentheses and braces.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+  (require 'smartparens)
+  (smartparens-global-mode t)
 #+end_src
 
 * Completions
@@ -459,7 +483,8 @@ inline documentation.
   (defun chatgpt-shell-clear ()
     "Clear the chatgpt-shell buffer by sending the command clear to the buffer."
     (interactive)
-    (chatgpt-shell-send-to-buffer "clear"))
+    (with-current-buffer "*chatgpt*"
+      (chatgpt-shell-send-to-buffer "clear")))
   (easy-menu-define hm-chatgpt-menu hm-chatgpt-mode-map
     "Menu for ChatGPT related items."
     '("ChatGPT"
