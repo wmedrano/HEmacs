@@ -125,12 +125,13 @@ doom-modeline-hud t)
 ;; [[file:README.org::#KeybindingsVIM-yfn2c0o0yuj0][VIM:1]]
 ;; Usually we require first but evil needs to know some of the variables at init
 ;; time.
-(setq-default evil-want-C-u-scroll t)
+(setq-default evil-want-C-u-scroll t
+              evil-undo-system 'undo-redo)
 (require 'evil)
 (require 'evil-anzu)
 (require 'anzu)
 (evil-mode t)
-(global-anzu-mode t);; To show number of search matches in modeline.
+(global-anzu-mode t) ;; To show number of search matches in modeline.
 ;; VIM:1 ends here
 
 ;; Motion State
