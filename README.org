@@ -332,6 +332,14 @@ The below are taken from VSCode.
   (setq-default scroll-conservatively 100)
 #+end_src
 
+** Window Navigation
+
+Select a window it the mouse hovers over it.
+
+#+begin_src emacs-lisp :tangle init.el :comments both :results silent
+(setq-default mouse-autoselect-window t)
+#+end_src
+
 ** Editing
 :PROPERTIES:
 :CUSTOM_ID: KeybindingsEditing-p2s2c0o0yuj0

@@ -5,15 +5,15 @@
 
 
 ;; [[file:README.org::#IntroductionDependencies-78e2c0o0yuj0][Dependencies:1]]
-(custom-set-variables
- '(package-selected-packages '(
-                               chatgpt-shell auto-highlight-symbol evil-anzu
-                               ivy-emoji htmlize markdown-mode diff-hl company
-                               rust-mode which-key magit doom-modeline
-                               nerd-icons-ivy-rich ivy-rich counsel ivy
-                               typescript-mode eglot atom-one-dark-theme evil
-                               yaml-mode smartparens js2-mode
-                               volatile-highlights)))
+  (custom-set-variables
+   '(package-selected-packages '(
+                                 chatgpt-shell auto-highlight-symbol evil-anzu
+                                 ivy-emoji htmlize markdown-mode diff-hl company
+                                 rust-mode which-key magit doom-modeline
+                                 nerd-icons-ivy-rich ivy-rich counsel ivy
+                                 typescript-mode eglot atom-one-dark-theme evil
+                                 yaml-mode smartparens js2-mode
+                                 volatile-highlights)))
 ;; Dependencies:1 ends here
 
 ;; Fonts
@@ -30,12 +30,12 @@
 
 
 ;; [[file:README.org::#IntroductionFonts-2sf2c0o0yuj0][Fonts:1]]
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:family "JetBrainsMono Nerd Font" :foundry "JB" :slant normal :weight normal :height 120 :width normal)))))
+  (custom-set-faces
+    ;; custom-set-faces was added by Custom.
+    ;; If you edit it by hand, you could mess it up, so be careful.
+    ;; Your init file should contain only one such instance.
+    ;; If there is more than one, they won't work right.
+   '(default ((t (:family "JetBrainsMono Nerd Font" :foundry "JB" :slant normal :weight normal :height 120 :width normal)))))
 ;; Fonts:1 ends here
 
 ;; Package Manager
@@ -48,9 +48,9 @@
 
 
 ;; [[file:README.org::#IntroductionPackageManager-1dh2c0o0yuj0][Package Manager:1]]
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
 ;; Package Manager:1 ends here
 
 ;; Help
@@ -67,8 +67,8 @@
 
 
 ;; [[file:README.org::#IntroductionHelp-2xi2c0o0yuj0][Help:1]]
-(require 'which-key)
-(which-key-mode t)
+  (require 'which-key)
+  (which-key-mode t)
 ;; Help:1 ends here
 
 ;; Theming
@@ -82,22 +82,22 @@
 
 
 ;; [[file:README.org::#Theming-8gk2c0o0yuj0][Theming:1]]
-(require 'atom-one-dark-theme)
-(require 'doom-modeline)
-(setq-default
-;; Don't show retro startup screen.
-inhibit-startup-screen t
-;; Don't show buffer encoding. For example "UTF-8".
-doom-modeline-buffer-encoding nil
-;; Show mini-scrollbar in far left-most space of modeline.
-doom-modeline-hud t)
-(load-theme 'atom-one-dark t)
-(doom-modeline-mode t)
+  (require 'atom-one-dark-theme)
+  (require 'doom-modeline)
+  (setq-default
+  ;; Don't show retro startup screen.
+  inhibit-startup-screen t
+  ;; Don't show buffer encoding. For example "UTF-8".
+  doom-modeline-buffer-encoding nil
+  ;; Show mini-scrollbar in far left-most space of modeline.
+  doom-modeline-hud t)
+  (load-theme 'atom-one-dark t)
+  (doom-modeline-mode t)
 
-(setq-default display-line-numbers-grow-only t)
-(global-display-line-numbers-mode t)
-(global-hl-line-mode t)
-(column-number-mode t)
+  (setq-default display-line-numbers-grow-only t)
+  (global-display-line-numbers-mode t)
+  (global-hl-line-mode t)
+  (column-number-mode t)
 ;; Theming:1 ends here
 
 
@@ -106,9 +106,9 @@ doom-modeline-hud t)
 
 
 ;; [[file:README.org::#Theming-8gk2c0o0yuj0][Theming:2]]
-(menu-bar-mode t)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+  (menu-bar-mode t)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
 ;; Theming:2 ends here
 
 ;; VIM
@@ -123,15 +123,15 @@ doom-modeline-hud t)
 
 
 ;; [[file:README.org::#KeybindingsVIM-yfn2c0o0yuj0][VIM:1]]
-;; Usually we require first but evil needs to know some of the variables at init
-;; time.
-(setq-default evil-want-C-u-scroll t
-              evil-undo-system 'undo-redo)
-(require 'evil)
-(require 'evil-anzu)
-(require 'anzu)
-(evil-mode t)
-(global-anzu-mode t) ;; To show number of search matches in modeline.
+  ;; Usually we require first but evil needs to know some of the variables at init
+  ;; time.
+  (setq-default evil-want-C-u-scroll t
+                evil-undo-system 'undo-redo)
+  (require 'evil)
+  (require 'evil-anzu)
+  (require 'anzu)
+  (evil-mode t)
+  (global-anzu-mode t) ;; To show number of search matches in modeline.
 ;; VIM:1 ends here
 
 ;; Motion State
@@ -144,18 +144,18 @@ doom-modeline-hud t)
 
 
 ;; [[file:README.org::#KeybindingsVIMMotionState-fzo2c0o0yuj0][Motion State:1]]
-(add-to-list 'evil-motion-state-modes 'dired-mode)
-(add-to-list 'evil-motion-state-modes 'magit-diff-mode)
-(add-to-list 'evil-motion-state-modes 'magit-status-mode)
-(add-to-list 'evil-motion-state-modes 'special-mode)
+  (add-to-list 'evil-motion-state-modes 'dired-mode)
+  (add-to-list 'evil-motion-state-modes 'magit-diff-mode)
+  (add-to-list 'evil-motion-state-modes 'magit-status-mode)
+  (add-to-list 'evil-motion-state-modes 'special-mode)
 
-(defun hm-evil-define-normal-key-only (key fn)
-  "Maps KEY to FN, but only in normal mode.
+  (defun hm-evil-define-normal-key-only (key fn)
+    "Maps KEY to FN, but only in normal mode.
 
-Motion state will be unbounded."
-  (define-key evil-motion-state-map key nil)
-  (define-key evil-normal-state-map key fn))
-(hm-evil-define-normal-key-only (kbd "RET") #'evil-ret)
+  Motion state will be unbounded."
+    (define-key evil-motion-state-map key nil)
+    (define-key evil-normal-state-map key fn))
+  (hm-evil-define-normal-key-only (kbd "RET") #'evil-ret)
 ;; Motion State:1 ends here
 
 ;; VSCode
@@ -167,17 +167,17 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#KeybindingsVSCode-6kq2c0o0yuj0][VSCode:1]]
-(require 'eglot)
-(context-menu-mode t)  ;; Enables right clicking in GUI mode.
-(define-key eglot-mode-map   (kbd "C-.")     #'eglot-code-actions)
-(define-key eglot-mode-map   (kbd "<f2>")    #'eglot-rename)
-(define-key flymake-mode-map (kbd "<f8>")    #'flymake-goto-next-error)
-(define-key flymake-mode-map (kbd "S-<f8>")  #'flymake-goto-prev-error)
-(define-key eglot-mode-map   (kbd "<f12>")   #'xref-find-definitions)
-(define-key eglot-mode-map   (kbd "S-<f12>") #'xref-find-references)
-;; Emacs links C-SPC and C-@ so we have to set both.
-(evil-define-key 'insert company-mode-map (kbd "C-@")   #'company-complete)
-(evil-define-key 'insert company-mode-map (kbd "C-SPC") #'company-complete)
+  (require 'eglot)
+  (context-menu-mode t)  ;; Enables right clicking in GUI mode.
+  (define-key eglot-mode-map   (kbd "C-.")     #'eglot-code-actions)
+  (define-key eglot-mode-map   (kbd "<f2>")    #'eglot-rename)
+  (define-key flymake-mode-map (kbd "<f8>")    #'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "S-<f8>")  #'flymake-goto-prev-error)
+  (define-key eglot-mode-map   (kbd "<f12>")   #'xref-find-definitions)
+  (define-key eglot-mode-map   (kbd "S-<f12>") #'xref-find-references)
+  ;; Emacs links C-SPC and C-@ so we have to set both.
+  (evil-define-key 'insert company-mode-map (kbd "C-@")   #'company-complete)
+  (evil-define-key 'insert company-mode-map (kbd "C-SPC") #'company-complete)
 ;; VSCode:1 ends here
 
 
@@ -186,10 +186,19 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#KeybindingsVSCode-6kq2c0o0yuj0][VSCode:2]]
-(visual-line-mode t)
-(toggle-truncate-lines 1)
-(setq-default scroll-conservatively 100)
+  (visual-line-mode t)
+  (toggle-truncate-lines 1)
+  (setq-default scroll-conservatively 100)
 ;; VSCode:2 ends here
+
+;; Window Navigation
+
+;; Select a window it the mouse hovers over it.
+
+
+;; [[file:README.org::*Window Navigation][Window Navigation:1]]
+(setq-default mouse-autoselect-window t)
+;; Window Navigation:1 ends here
 
 ;; Editing
 ;; :PROPERTIES:
@@ -198,15 +207,15 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#KeybindingsEditing-p2s2c0o0yuj0][Editing:1]]
-(setq-default
- indent-tabs-mode nil
- fill-column 80
- ;; TODO: Consider changing the default tab width.
- tab-width 2
- ahs-idle-interval 0.25)
-(add-hook 'text-mode-hook #'auto-fill-mode)
-(add-hook 'prog-mode-hook #'auto-fill-mode)
-(add-hook 'before-save-hook #'delete-trailing-whitespace)
+  (setq-default
+   indent-tabs-mode nil
+   fill-column 80
+   ;; TODO: Consider changing the default tab width.
+   tab-width 2
+   ahs-idle-interval 0.25)
+  (add-hook 'text-mode-hook #'auto-fill-mode)
+  (add-hook 'prog-mode-hook #'auto-fill-mode)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
 ;; Editing:1 ends here
 
 
@@ -216,8 +225,8 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#KeybindingsEditing-p2s2c0o0yuj0][Editing:2]]
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
+  (require 'volatile-highlights)
+  (volatile-highlights-mode t)
 ;; Editing:2 ends here
 
 ;; Files
@@ -227,11 +236,11 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#Files-sit2c0o0yuj0][Files:1]]
-(setq-default
- backup-inhibited t
- ring-bell-function 'ignore)
-(auto-save-mode nil)
-(global-auto-revert-mode t)
+  (setq-default
+   backup-inhibited t
+   ring-bell-function 'ignore)
+  (auto-save-mode nil)
+  (global-auto-revert-mode t)
 ;; Files:1 ends here
 
 ;; Eglot
@@ -247,9 +256,9 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::*Eglot][Eglot:1]]
-(require 'eglot)
-(add-hook 'typescript-mode-hook #'eglot-ensure)
-(add-hook 'rust-mode-hook       #'eglot-ensure)
+  (require 'eglot)
+  (add-hook 'typescript-mode-hook #'eglot-ensure)
+  (add-hook 'rust-mode-hook       #'eglot-ensure)
 ;; Eglot:1 ends here
 
 ;; Company
@@ -258,9 +267,9 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::*Company][Company:1]]
-(require 'company)
-(setq-default company-tooltip-width-grow-only t)
-(global-company-mode t)
+  (require 'company)
+  (setq-default company-tooltip-width-grow-only t)
+  (global-company-mode t)
 ;; Company:1 ends here
 
 ;; Flymake
@@ -272,8 +281,8 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#IDEFeaturesEmacsLisp-zgw2c0o0yuj0][Flymake:1]]
-(dolist (path load-path)
-   (add-to-list 'elisp-flymake-byte-compile-load-path path))
+  (dolist (path load-path)
+     (add-to-list 'elisp-flymake-byte-compile-load-path path))
 ;; Flymake:1 ends here
 
 ;; Code Formatting
@@ -282,11 +291,11 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::*Code Formatting][Code Formatting:1]]
-(defun eglot-format-before-save ()
-  "Set up format before save."
-  (add-hook 'before-save-hook #'eglot-format-buffer 0 t))
-(add-hook 'typescript-mode-hook #'eglot-format-before-save)
-(add-hook 'rust-mode-hook       #'eglot-format-before-save)
+  (defun eglot-format-before-save ()
+    "Set up format before save."
+    (add-hook 'before-save-hook #'eglot-format-buffer 0 t))
+  (add-hook 'typescript-mode-hook #'eglot-format-before-save)
+  (add-hook 'rust-mode-hook       #'eglot-format-before-save)
 ;; Code Formatting:1 ends here
 
 
@@ -295,8 +304,8 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::*Code Formatting][Code Formatting:2]]
-(require 'auto-highlight-symbol)
-(global-auto-highlight-symbol-mode t)
+  (require 'auto-highlight-symbol)
+  (global-auto-highlight-symbol-mode t)
 ;; Code Formatting:2 ends here
 
 
@@ -305,8 +314,8 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::*Code Formatting][Code Formatting:3]]
-(require 'smartparens)
-(smartparens-global-mode t)
+  (require 'smartparens)
+  (smartparens-global-mode t)
 ;; Code Formatting:3 ends here
 
 ;; Completions
@@ -319,12 +328,12 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#Completions-jt03c0o0yuj0][Completions:1]]
-(require 'counsel)
-(require 'ivy)
-(ivy-mode t)
-(counsel-mode t)
- ;; Counsel does not set this one by default.
-(global-set-key (kbd "C-x b") #'counsel-switch-buffer)
+  (require 'counsel)
+  (require 'ivy)
+  (ivy-mode t)
+  (counsel-mode t)
+   ;; Counsel does not set this one by default.
+  (global-set-key (kbd "C-x b") #'counsel-switch-buffer)
 ;; Completions:1 ends here
 
 
@@ -335,41 +344,41 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#Completions-jt03c0o0yuj0][Completions:2]]
-(require 'ivy-rich)
-(require 'nerd-icons-ivy-rich)
-;; Since we initialize some rich variables later in the file, we must defer
-;; enabling the modes.
-(add-hook 'after-init-hook #'ivy-rich-mode)
-(add-hook 'after-init-hook #'nerd-icons-ivy-rich-mode)
+  (require 'ivy-rich)
+  (require 'nerd-icons-ivy-rich)
+  ;; Since we initialize some rich variables later in the file, we must defer
+  ;; enabling the modes.
+  (add-hook 'after-init-hook #'ivy-rich-mode)
+  (add-hook 'after-init-hook #'nerd-icons-ivy-rich-mode)
 ;; Completions:2 ends here
 
 ;; ChatGPT
 
 
 ;; [[file:README.org::*ChatGPT][ChatGPT:1]]
-(require 'chatgpt-shell)
-(setq-default chatgpt-shell-openai-key (secrets-get-secret "Login" "emacs-openai-api-key"))
-(define-minor-mode hm-chatgpt-mode
-  "A custom minor mode for."
-  :lighter "hm-chatgpt"
-  :global t
-  :keymap (make-sparse-keymap))
-(hm-chatgpt-mode t)
-(defun chatgpt-shell-clear ()
-  "Clear the chatgpt-shell buffer by sending the command clear to the buffer."
-  (interactive)
-  (with-current-buffer "*chatgpt*"
-    (chatgpt-shell-send-to-buffer "clear")))
-(easy-menu-define hm-chatgpt-menu hm-chatgpt-mode-map
-  "Menu for ChatGPT related items."
-  '("ChatGPT"
-    ["Open Shell" chatgpt-shell
-     "Open the ChatGPT shell buffer."]
-    ["Send Region" chatgpt-shell-send-and-review-region
-     "Send the region to the ChatGPT buffer."]
-    ["Clear" chatgpt-shell-clear
-     "Clear the ChatGPT buffer. This clears the chat context."]
-    ))
+  (require 'chatgpt-shell)
+  (setq-default chatgpt-shell-openai-key (secrets-get-secret "Login" "emacs-openai-api-key"))
+  (define-minor-mode hm-chatgpt-mode
+    "A custom minor mode for."
+    :lighter "hm-chatgpt"
+    :global t
+    :keymap (make-sparse-keymap))
+  (hm-chatgpt-mode t)
+  (defun chatgpt-shell-clear ()
+    "Clear the chatgpt-shell buffer by sending the command clear to the buffer."
+    (interactive)
+    (with-current-buffer "*chatgpt*"
+      (chatgpt-shell-send-to-buffer "clear")))
+  (easy-menu-define hm-chatgpt-menu hm-chatgpt-mode-map
+    "Menu for ChatGPT related items."
+    '("ChatGPT"
+      ["Open Shell" chatgpt-shell
+       "Open the ChatGPT shell buffer."]
+      ["Send Region" chatgpt-shell-send-and-review-region
+       "Send the region to the ChatGPT buffer."]
+      ["Clear" chatgpt-shell-clear
+       "Clear the ChatGPT buffer. This clears the chat context."]
+      ))
 ;; ChatGPT:1 ends here
 
 ;; Version Control
@@ -379,18 +388,18 @@ Motion state will be unbounded."
 
 
 ;; [[file:README.org::#VersionControl-bw13c0o0yuj0][Version Control:1]]
-(require 'diff-hl)
-(defun set-up-diff-hl-mode ()
-  "Set up diff hl.
+  (require 'diff-hl)
+  (defun set-up-diff-hl-mode ()
+    "Set up diff hl.
 
-Diff HL provides the state (+/-/modified) to the left of the line numbers."
-  (diff-hl-flydiff-mode t)
-   ;; Margin mode should usually be enabled for terminal. GUI mode automatically
-   ;; uses the special "fringe" to display the information.
-  (unless (display-graphic-p)
-    (diff-hl-margin-mode t)))
-(add-hook 'diff-hl-mode-hook #'set-up-diff-hl-mode)
-(global-diff-hl-mode t)
+  Diff HL provides the state (+/-/modified) to the left of the line numbers."
+    (diff-hl-flydiff-mode t)
+     ;; Margin mode should usually be enabled for terminal. GUI mode automatically
+     ;; uses the special "fringe" to display the information.
+    (unless (display-graphic-p)
+      (diff-hl-margin-mode t)))
+  (add-hook 'diff-hl-mode-hook #'set-up-diff-hl-mode)
+  (global-diff-hl-mode t)
 ;; Version Control:1 ends here
 
 ;; Focus
@@ -400,10 +409,10 @@ Diff HL provides the state (+/-/modified) to the left of the line numbers."
 
 
 ;; [[file:README.org::#UtilsFocus-mw43c0o0yuj0][Focus:1]]
-(defun hm-focus ()
-  "Helps you focus."
-  (interactive)
-  (message "Focus! Your dad's here."))
+  (defun hm-focus ()
+    "Helps you focus."
+    (interactive)
+    (message "Focus! Your dad's here."))
 ;; Focus:1 ends here
 
 ;; Open File In Chrome
@@ -415,24 +424,24 @@ Diff HL provides the state (+/-/modified) to the left of the line numbers."
 
 
 ;; [[file:README.org::#UtilsOpenFileInChrome-9u53c0o0yuj0][Open File In Chrome:1]]
-(defun hm-clone-ivy-display-transformers (src dst)
-  "Applies ivy completion styling from function SRC to function DST.
+  (defun hm-clone-ivy-display-transformers (src dst)
+    "Applies ivy completion styling from function SRC to function DST.
 
-Note: This must be run before the rich modes are enabled."
-  (setq ivy-rich-display-transformers-list
-        (plist-put
-         ivy-rich-display-transformers-list dst
-         (plist-get ivy-rich-display-transformers-list src)))
-  (setq nerd-icons-ivy-rich-display-transformers-list
-        (plist-put
-         nerd-icons-ivy-rich-display-transformers-list dst
-         (plist-get nerd-icons-ivy-rich-display-transformers-list src))))
+  Note: This must be run before the rich modes are enabled."
+    (setq ivy-rich-display-transformers-list
+          (plist-put
+           ivy-rich-display-transformers-list dst
+           (plist-get ivy-rich-display-transformers-list src)))
+    (setq nerd-icons-ivy-rich-display-transformers-list
+          (plist-put
+           nerd-icons-ivy-rich-display-transformers-list dst
+           (plist-get nerd-icons-ivy-rich-display-transformers-list src))))
 
-(defun hm-find-file-in-chrome ()
-  "Prompt for a file and open it in Chrome."
-  (interactive)
-  (counsel--find-file-1 "Open in chrome: " nil #'browse-url-chrome 'hm-find-file-in-chrome))
-(hm-clone-ivy-display-transformers 'counsel-find-file 'hm-find-file-in-chrome)
+  (defun hm-find-file-in-chrome ()
+    "Prompt for a file and open it in Chrome."
+    (interactive)
+    (counsel--find-file-1 "Open in chrome: " nil #'browse-url-chrome 'hm-find-file-in-chrome))
+  (hm-clone-ivy-display-transformers 'counsel-find-file 'hm-find-file-in-chrome)
 ;; Open File In Chrome:1 ends here
 
 ;; End
@@ -444,6 +453,6 @@ Note: This must be run before the rich modes are enabled."
 
 
 ;; [[file:README.org::#End-xq63c0o0yuj0][End:1]]
-(provide 'init)
-;;; init.el ends here
+  (provide 'init)
+  ;;; init.el ends here
 ;; End:1 ends here
